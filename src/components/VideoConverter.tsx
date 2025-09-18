@@ -461,19 +461,19 @@ const HlsConverterMini: React.FC = () => {
         setStage('loading');
         // Use single-thread core to avoid COOP/COEP issues in local dev
         const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-    const ffmpeg = ffmpegRef.current;
+        const ffmpeg = ffmpegRef.current;
 
-      ffmpeg.on('log', ({ message }) => {
+        ffmpeg.on('log', ({ message }) => {
           // Helpful to see what's happening under the hood
           console.log('[ffmpeg]', message);
-      });
-      ffmpeg.on('progress', ({ progress }) => {
+        });
+        ffmpeg.on('progress', ({ progress }) => {
           if (stage === 'converting') setProgress(Math.floor(20 + progress * 60));
-      });
+        });
 
-      await ffmpeg.load({
-        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+        await ffmpeg.load({
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
         });
         setFfmpegReady(true);
         setStage('ready');
@@ -679,15 +679,15 @@ const HlsConverterMini: React.FC = () => {
         <div>Progress: {progress}%</div>
       </div>
 
-        {downloadUrl && (
-          <a
-            href={downloadUrl}
+      {downloadUrl && (
+        <a
+          href={downloadUrl}
           download={`${file?.name?.replace(/\.(mp4|mov)$/i, '') || 'video'}_hls.zip`}
           style={{ display: 'inline-block', marginTop: 12, color: '#16a34a' }}
-          >
+        >
           Download ZIP (HLS)
-          </a>
-        )}
+        </a>
+      )}
     </div>
   );
 };
