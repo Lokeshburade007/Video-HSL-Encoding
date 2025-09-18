@@ -5,6 +5,10 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    // Exclude FFmpeg wasm libs from optimizer to avoid worker resolution issues
+    exclude: ['lucide-react', '@ffmpeg/ffmpeg', '@ffmpeg/util', '@ffmpeg/core', '@ffmpeg/core-mt'],
+  },
+  worker: {
+    format: 'es',
   },
 });
